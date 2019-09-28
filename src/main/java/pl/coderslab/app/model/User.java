@@ -1,7 +1,9 @@
 package pl.coderslab.app.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -13,14 +15,37 @@ import java.util.List;
 public class User extends AbstarctEntity {
 
     @NotBlank
+    @Column(name = "first_name")
     private String firstName;
     @NotBlank
+    @Column(name = "last_name")
     private String lastName;
+    @Email
+    private String email;
+    @NotBlank
+    private String password;
+
     private String access;
     @OneToMany(mappedBy = "user")
     private List<Advertisement> advertisements = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getFirstName() {
         return firstName;
