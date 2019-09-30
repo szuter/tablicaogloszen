@@ -30,22 +30,10 @@ public class User extends AbstarctEntity {
     private List<Advertisement> advertisements = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    @OneToMany(mappedBy = "sender")
+    private List<Message> outbox = new ArrayList<>();
+    @OneToMany(mappedBy = "recipient")
+    private List<Message> inbox = new ArrayList<>();
 
     public String getFirstName() {
         return firstName;
@@ -61,6 +49,22 @@ public class User extends AbstarctEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAccess() {
@@ -85,5 +89,21 @@ public class User extends AbstarctEntity {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public List<Message> getOutbox() {
+        return outbox;
+    }
+
+    public void setOutbox(List<Message> outbox) {
+        this.outbox = outbox;
+    }
+
+    public List<Message> getInbox() {
+        return inbox;
+    }
+
+    public void setInbox(List<Message> inbox) {
+        this.inbox = inbox;
     }
 }

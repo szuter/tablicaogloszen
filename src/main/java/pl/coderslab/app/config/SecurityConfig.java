@@ -47,13 +47,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-                    .loginPage("/login")
+                .loginPage("/login")
+                .usernameParameter("email")
+                .passwordParameter("password")
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/").permitAll()
                 .anyRequest().authenticated();
     }
 }

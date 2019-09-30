@@ -6,4 +6,6 @@ import pl.coderslab.app.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     long countByEmail(String email);
+
+    User findByEmail(String email);
 }
