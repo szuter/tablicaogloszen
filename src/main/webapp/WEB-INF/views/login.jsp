@@ -19,7 +19,7 @@
         Email:<form:input path="email" type="email"/>
     </p>
     <p>
-    Hasło:<form:input path="password" type="password"/>
+        Hasło:<form:input path="password" type="password"/>
     </p>
     <p>
         <input type="submit" value="Zaloguj"/>

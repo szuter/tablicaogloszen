@@ -3,10 +3,7 @@ package pl.coderslab.app.model;
 import com.sun.istack.internal.Nullable;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,12 +12,26 @@ public class Comment extends AbstarctEntity {
 
     @NotBlank
     private String message;
-    private LocalDateTime date;
+    private LocalDateTime created;
+    @Transient
+    private String author;
     @Nullable
     @ManyToOne
     private User user;
     @ManyToOne
     private Advertisement advertisement;
+
+    public Comment() {
+        author = "Anonymous";
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public String getMessage() {
         return message;
@@ -30,13 +41,13 @@ public class Comment extends AbstarctEntity {
         this.message = message;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getCreated() {
+        return created;
     }
 
     @PrePersist
     public void prePersist() {
-        date = LocalDateTime.now();
+        created = LocalDateTime.now();
     }
 
     public User getUser() {

@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 .passwordEncoder(passwordEncoder())
                 .dataSource(dataSource())
-                .usersByUsernameQuery("select email,password,true from users where email = ?")
+                .usersByUsernameQuery("select email,password,true from users where email =?")
                 .authoritiesByUsernameQuery("select email, access from users where email =?");
     }
 
@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/").permitAll()
+                .antMatchers("/home").permitAll()
                 .anyRequest().authenticated();
     }
 }
