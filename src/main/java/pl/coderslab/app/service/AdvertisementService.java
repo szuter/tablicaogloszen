@@ -51,6 +51,6 @@ public class AdvertisementService {
     public List<Comment> commentList(Long id) {
         List<Comment> comments = advertisementRepository.findOne(id).getComments();
         comments.size();
-        return comments;
+    return comments;
     }
 }

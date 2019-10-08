@@ -83,7 +83,7 @@ public class Advertisement extends AbstarctEntity {
         setImage(Base64.getDecoder().decode(getPlaceholderImage()));
     }
 
-    public String getPlaceholderImage() {
+    private String getPlaceholderImage() {
         return placeholderImage;
     }
 
@@ -105,7 +105,7 @@ public class Advertisement extends AbstarctEntity {
         return Base64Image;
     }
 
-    public void setBase64Image(String base64Image) {
+    private void setBase64Image(String base64Image) {
         Base64Image = base64Image;
     }
 
@@ -125,7 +125,7 @@ public class Advertisement extends AbstarctEntity {
         this.description = description;
     }
 
-    public byte[] getImage() {
+    private byte[] getImage() {
         return image;
     }
 

@@ -22,7 +22,7 @@ public class HomePageService {
     }
 
     public boolean isAdmin(String email) {
-        return userRepository.findByEmail(email).getAccess().equals("ROLE_ADMIN") ? true : false;
+        return userRepository.findByEmail(email).getAccess().equals("ROLE_ADMIN");
     }
     public List<Advertisement> getAllAdvertisements(){
         return advertisementRepository.findAll();
