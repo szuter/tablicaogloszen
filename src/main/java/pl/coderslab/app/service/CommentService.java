@@ -26,9 +26,14 @@ public class CommentService {
     public void addComment(AddCommentDTO data) {
         Comment comment = new Comment();
         comment.setMessage(data.getMessage());
-        if (!(data.getUserId() == null))
+        if (!(data.getUserId() == null)) {
             comment.setUser(userRepository.findOne(data.getUserId()));
+        }
         comment.setAdvertisement(advertisementRepository.findOne(data.getAdvertisemenetId()));
         commentRepository.save(comment);
+    }
+
+    public Long getUserId(String email) {
+        return userRepository.findByEmail(email).getId();
     }
 }

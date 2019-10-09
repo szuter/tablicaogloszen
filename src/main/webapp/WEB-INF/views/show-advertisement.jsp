@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: szuter
@@ -19,14 +19,27 @@
 </div>
 <div>
     Obraz:<br>
-    <img src="data:image/png;base64,${advertisement.base64Image}" width="250" height="300">
+    <img src="data:image/png;base64,${advertisement.base64Image}" width="400" height="300">
+</div>
+<div>
+    <form method="get" action="/home/comment/add">
+        <input type="hidden" value="${advertisement.id}" name="id"/>
+        <input type="submit" value="Dodaj komentarz"/>
+    </form>
 </div>
 <div>
     <c:choose>
-        <c:when test="${!(comments == null)}">
+        <c:when test="${not empty comments}">
             <c:forEach var="comment" items="${comments}">
-                <p>Autor: ${comment.user.firstName} ${comment.user.lastName}<br>
-                    Opis: ${comment.message}<br></p>
+                <c:choose>
+                    <c:when test="${not empty comment.user}">
+                        <p>Autor: ${comment.user.firstName} ${comment.user.lastName}<br></p>
+                    </c:when>
+                    <c:otherwise>
+                        <p>Autor: Anonim</p>
+                    </c:otherwise>
+                </c:choose>
+                <p> Opis: ${comment.message}<br></p>
             </c:forEach>
             <br>
         </c:when>

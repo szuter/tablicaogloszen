@@ -9,7 +9,7 @@ public class AddCommentDTO {
     private String message;
     @Nullable
     private Long userId;
-    @NotBlank
+
     private Long advertisementId;
 
 
