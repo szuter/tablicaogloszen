@@ -14,7 +14,7 @@
 <body>
 <form:form method="post" modelAttribute="data" enctype="multipart/form-data">
     <p>
-        <label for="image">Avatar</label><br>
+        <label for="image">Obraz</label><br>
         <form:input type="file" path="image" />
         <form:errors path="image"/>
     </p>

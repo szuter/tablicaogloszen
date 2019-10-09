@@ -22,11 +22,18 @@
     <img src="data:image/png;base64,${advertisement.base64Image}" width="400" height="300">
 </div>
 <div>
+    <form method="get" action="/message/send">
+        <input type="hidden" value="${advertisement.user.id}" name="recipientId">
+        <input type="submit" value="Wyslij widaomość">
+    </form>
+</div>
+<div>
     <form method="get" action="/home/comment/add">
         <input type="hidden" value="${advertisement.id}" name="id"/>
         <input type="submit" value="Dodaj komentarz"/>
     </form>
 </div>
+
 <div>
     <c:choose>
         <c:when test="${not empty comments}">
