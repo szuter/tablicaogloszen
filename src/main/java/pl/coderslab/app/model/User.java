@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User extends AbstarctEntity {
+public class User extends AbstractEntity {
 
     @NotBlank
     @Column(name = "first_name")

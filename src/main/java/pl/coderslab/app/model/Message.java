@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "messages")
-public class Message extends AbstarctEntity {
+public class Message extends AbstractEntity {
 
     @NotBlank
     private String title;

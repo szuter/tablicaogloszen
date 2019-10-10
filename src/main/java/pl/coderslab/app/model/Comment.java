@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comments")
-public class Comment extends AbstarctEntity {
+public class Comment extends AbstractEntity {
 
     @NotBlank
     private String message;

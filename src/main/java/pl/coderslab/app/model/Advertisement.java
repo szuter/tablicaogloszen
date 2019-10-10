@@ -11,15 +11,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "advertisments")
-public class Advertisement extends AbstarctEntity {
+public class Advertisement extends AbstractEntity {
 
-
+    @NotBlank
+    private String title;
     @Lob
     private byte[] image;
     @NotBlank
     private String description;
     @Transient
-    private String Base64Image;
+    private String base64Image;
 
     @Transient
     private String placeholderImage =
@@ -83,6 +84,14 @@ public class Advertisement extends AbstarctEntity {
         setImage(Base64.getDecoder().decode(getPlaceholderImage()));
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     private String getPlaceholderImage() {
         return placeholderImage;
     }
@@ -102,11 +111,11 @@ public class Advertisement extends AbstarctEntity {
 
     public String getBase64Image() {
         setBase64Image(Base64.getEncoder().encodeToString(getImage()));
-        return Base64Image;
+        return base64Image;
     }
 
-    private void setBase64Image(String base64Image) {
-        Base64Image = base64Image;
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
     }
 
     public LocalDateTime getExpired() {
@@ -125,7 +134,7 @@ public class Advertisement extends AbstarctEntity {
         this.description = description;
     }
 
-    private byte[] getImage() {
+    public byte[] getImage() {
         return image;
     }
 

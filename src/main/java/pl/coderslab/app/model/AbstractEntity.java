@@ -8,7 +8,7 @@ import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class AbstarctEntity {
+public abstract class AbstractEntity {
 
 
     @Id
@@ -28,7 +28,7 @@ public abstract class AbstarctEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbstarctEntity that = (AbstarctEntity) o;
+        AbstractEntity that = (AbstractEntity) o;
         return Objects.equals(id, that.id);
     }
 
@@ -39,7 +39,7 @@ public abstract class AbstarctEntity {
 
     @Override
     public String toString() {
-        return "AbstarctEntity{" +
+        return "AbstractEntity{" +
                 "id=" + id +
                 '}';
     }

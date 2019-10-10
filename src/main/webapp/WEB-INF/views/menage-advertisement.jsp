@@ -14,13 +14,19 @@
 <body>
 <form:form method="post" modelAttribute="data" enctype="multipart/form-data">
     <p>
+        <label for="title">Tytuł</label>
+        <form:input path="title" id="title"/>
+        <form:errors path="title"/>
+    </p>
+    <p>
         <label for="image">Obraz</label><br>
+        <form:hidden path="base64Image"/>
         <form:input type="file" path="image" />
         <form:errors path="image"/>
     </p>
     <p>
         <label for="description">Opis</label>
-        <form:input path="description" id="description"/>\
+        <form:input type="textarea" path="description" id="description"/>
         <form:errors path="description"/>
     </p>
     <p>

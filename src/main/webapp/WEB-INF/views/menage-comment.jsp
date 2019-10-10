@@ -17,7 +17,7 @@
     <form:errors path="message"/>
     <form:hidden path="advertisemenetId" value="${advertisementId}"/>
     <form:hidden path="userId" value="${userId}"/>
-    <input type="submit" value="Dodaj"/>
+    <input type="submit" value="Zapisz"/>
 </form:form>
 </body>
 </html>

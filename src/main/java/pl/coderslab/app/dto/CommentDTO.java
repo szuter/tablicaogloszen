@@ -3,8 +3,10 @@ package pl.coderslab.app.dto;
 import com.sun.istack.internal.Nullable;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class AddCommentDTO {
+public class CommentDTO {
 
+    @Nullable
+    private Long id;
     @NotBlank
     private String message;
     @Nullable
@@ -12,6 +14,13 @@ public class AddCommentDTO {
 
     private Long advertisementId;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getUserId() {
         return userId;

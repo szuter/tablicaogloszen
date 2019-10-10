@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.app.model.Advertisement;
 import pl.coderslab.app.service.HomePageService;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 
@@ -21,11 +22,12 @@ public class HomePageController {
     }
 
     @GetMapping
-    public String prepareHomePage(Principal principal, Model model) {
+    public String prepareHomePage(Principal principal, Model model, HttpSession session) {
 
         List<Advertisement> advertisements = homePageService.getAllAdvertisements();
         model.addAttribute("advertisementList", advertisements);
         if (principal != null) {
+            session.setAttribute("User", homePageService.getUser(principal.getName()));
             if (homePageService.isAdmin(principal.getName())) {
                 return "redirect:/admin";
             } else

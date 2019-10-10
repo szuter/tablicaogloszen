@@ -29,10 +29,6 @@ public class MessageBoxController {
     @GetMapping("/outbox")
     public String processOutBoxPage(Model model, Principal principal) {
         List<Message> outBox = messageService.getOutBox(principal.getName());
-        for (Message m : outBox) {
-            System.out.println(m.getSender().getFirstName());
-        }
-        System.out.println("dupa");
         model.addAttribute("outbox", outBox);
         return "outbox";
     }

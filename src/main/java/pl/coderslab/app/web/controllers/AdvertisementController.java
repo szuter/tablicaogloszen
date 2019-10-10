@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.app.dto.AddAdvertisementDTO;
+import pl.coderslab.app.dto.AdvertisementDTO;
 import pl.coderslab.app.service.AdvertisementService;
 
 import javax.validation.Valid;
@@ -28,12 +28,12 @@ public class AdvertisementController {
     public String prepareAddAdvertisementPage(Model model) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         model.addAttribute("actualTime", LocalDateTime.now().format(inputFormatter));
-        model.addAttribute("data", new AddAdvertisementDTO());
-        return "add-advertisement";
+        model.addAttribute("data", new AdvertisementDTO());
+        return "menage-advertisement";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddAdvertisementPage(@ModelAttribute("data") @Valid AddAdvertisementDTO advertisementDTO, BindingResult result, Principal principal) {
+    @RequestMapping(value = {"/add", "/edit"}, method = RequestMethod.POST)
+    public String processAddAdvertisementPage(@ModelAttribute("data") @Valid AdvertisementDTO advertisementDTO, BindingResult result, Principal principal) {
         advertisementService.addAdvertisement(advertisementDTO, principal.getName());
         return "redirect:/";
     }
@@ -42,7 +42,13 @@ public class AdvertisementController {
     @RequestMapping(value = "/show", method = RequestMethod.GET)
     public String processShowAdvertisement(@RequestParam long id, Model model) {
         model.addAttribute("advertisement", advertisementService.showAdvertisement(id));
-        model.addAttribute("comments",advertisementService.commentList(id));
+        model.addAttribute("comments", advertisementService.commentList(id));
         return "show-advertisement";
+    }
+
+    @GetMapping("/edit")
+    public String prepareEditAdvertisementPage(Model model, @RequestParam Long id) {
+        model.addAttribute("data", advertisementService.getAdevertisement(id));
+        return "menage-advertisement";
     }
 }
