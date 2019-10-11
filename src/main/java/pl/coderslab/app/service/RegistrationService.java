@@ -31,7 +31,7 @@ public class RegistrationService {
 
     public void registerUser(RegistrationFormDTO data) {
         User user = new User();
-        user.setAccess("ROLE_ADMIN");
+        user.setAccess("ROLE_USER");
         user.setPassword(passwordEncoder.encode(data.getPassword()));
         user.setEmail(data.getEmail());
         user.setFirstName(data.getFirstName());

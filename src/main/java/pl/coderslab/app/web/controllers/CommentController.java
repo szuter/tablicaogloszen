@@ -25,7 +25,8 @@ public class CommentController {
     public String prepareAddCommentPage(Model model, Principal principal, @RequestParam Long id) {
         model.addAttribute("data", new CommentDTO());
         model.addAttribute("advertisementId", id);
-        model.addAttribute("userId", commentService.getUserId(principal.getName()));
+        if (principal != null)
+            model.addAttribute("userId", commentService.getUserId(principal.getName()));
         return "menage-comment";
     }
 

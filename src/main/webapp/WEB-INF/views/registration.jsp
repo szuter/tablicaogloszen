@@ -9,36 +9,34 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html>
-<head>
-    <title>Zarejestruj Uzutkownika</title>
-</head>
-<body>
-<form:form method="post" modelAttribute="data">
-    <p>
-        Email:<form:input path="email" type="email"/>
-        <form:errors path="email"/>
-    </p>
-    <p>
-        Hasło:<form:input path="password" type="password"/>
-        <form:errors path="password"/>
-    </p>
-    <p>
-        Powtórz hasło:<form:input path="rePassword" type="password"/>
-        <form:errors path="rePassword"/>
-    </p>
-    <p>
-        Imię:<form:input path="firstName"/>
-        <form:errors path="firstName"/>
-    </p>
-    <p>
-        Nazwisko:<form:input path="lastName"/>
-        <form:errors path="lastName"/>
-    </p>
-    <p>
-        <input type="submit" value="Zarejestruj"/>
-        <input type="reset" value="Wyczyść"/>
-    </p>
-</form:form>
-</body>
-</html>
+<jsp:include page="header.jsp"/>
+<main class="text-center">
+    <form:form method="post" modelAttribute="data">
+        <h1 class="h3 mb-3 font-weight-normal">Zarejestruj się</h1>
+        <p>
+            Email:<form:input path="email" type="email"/>
+            <form:errors path="email"/>
+        </p>
+        <p>
+            Hasło:<form:input path="password" type="password"/>
+            <form:errors path="password"/>
+        </p>
+        <p>
+            Powtórz hasło:<form:input path="rePassword" type="password"/>
+            <form:errors path="rePassword"/>
+        </p>
+        <p>
+            Imię:<form:input path="firstName"/>
+            <form:errors path="firstName"/>
+        </p>
+        <p>
+            Nazwisko:<form:input path="lastName"/>
+            <form:errors path="lastName"/>
+        </p>
+        <p>
+            <input type="submit" value="Zarejestruj"/>
+            <input type="reset" value="Wyczyść"/>
+        </p>
+    </form:form>
+</main>
+<jsp:include page="footer.jsp"/>

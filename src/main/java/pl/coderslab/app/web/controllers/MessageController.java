@@ -22,15 +22,17 @@ public class MessageController {
     }
 
     @GetMapping("/send")
-    public String prepareSendMessagePage(Model model,@RequestParam Long recipientId){
+    public String prepareSendMessagePage(Model model, @RequestParam Long recipientId) {
         model.addAttribute("data", new SendMessageDTO());
-        model.addAttribute("recipientId",recipientId);
+        model.addAttribute("recipientId", recipientId);
         return "send-message";
     }
 
     @PostMapping("/send")
-    public String processSendMessagePage(@ModelAttribute("data") @Valid SendMessageDTO data, BindingResult result, Principal principal){
+    public String processSendMessagePage(@ModelAttribute("data") @Valid SendMessageDTO data, BindingResult result, Principal principal) {
+        if (result.hasErrors())
+            return "send-message";
         messageService.sendMessage(data, principal.getName());
-        return "redirect:/";
+        return "redirect:/home";
     }
 }

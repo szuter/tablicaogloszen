@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
+                .defaultSuccessUrl("/home")
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
@@ -57,6 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/home").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/home/advertisement/show").permitAll()
+                .antMatchers("/home/comment/add").permitAll()
                 .anyRequest().authenticated();
     }
 }

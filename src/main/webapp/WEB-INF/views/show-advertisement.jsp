@@ -9,65 +9,103 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-<div>
-    Opis:${advertisement.description}
-</div>
-<div>
-    Obraz:<br>
-    <img src="data:image/png;base64,${advertisement.base64Image}" width="400" height="300">
-</div>
-<div>
-    <c:if test="${advertisement.user.id == sessionScope.User.getId()}">
-        <form method="get" action="/home/advertisement/edit">
-            <input type="hidden" value="${advertisement.id}" name="id">
-            <input type="submit" value="Edytuj ogłoszenie">
-        </form>
-    </c:if>
-</div>
-<div>
-    <form method="get" action="/message/send">
-        <input type="hidden" value="${advertisement.user.id}" name="recipientId">
-        <input type="submit" value="Wyslij widaomość">
-    </form>
-</div>
-<div>
-    <form method="get" action="/home/comment/add">
-        <input type="hidden" value="${advertisement.id}" name="id"/>
-        <input type="submit" value="Dodaj komentarz"/>
-    </form>
-</div>
+<jsp:include page="header.jsp"/>
+<br>
+<main>
+    <ul class="list-inline">
+        <li class="list-inline-item"><h2>${advertisement.title}</h2></li>
 
-<div>
+        <li class="list-inline-item float-right">
+            <c:choose>
+                <c:when test="${advertisement.user.id == sessionScope.User.getId()}">
+                    <form method="get" action="/home/advertisement/edit">
+                        <input type="hidden" value="${advertisement.id}" name="id">
+                        <button type="submit" class="btn btn-secondary">Edytuj</button>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <div class="btn-group">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <c:if test="${not empty sessionScope.User and advertisement.user.id != sessionScope.User.getId()}">
+                                <form method="get" action="/message/send">
+                                    <input type="hidden" value="${advertisement.user.id}" name="recipientId">
+                                    <button type="submit" class="btn btn-secondary">Wyslij widaomość</button>
+                                </form>
+                            </c:if>
+                            <form method="get" action="/home/comment/add">
+                                <input type="hidden" value="${advertisement.id}" name="id"/>
+                                <button type="submit" class="btn btn-secondary">Dodaj komentarz</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </li>
+    </ul>
+    <ul class="list-inline-item float-right">Data ważności:${advertisement.expired}</ul>
+    <ul class="list-inline">
+        <li class="list-inline-item"><img src="data:image/png;base64,${advertisement.base64Image}" width="400"
+                                          height="300"></li>
+        <li class="list-inline-item">${advertisement.description}</li>
+    </ul>
+
     <c:choose>
         <c:when test="${not empty comments}">
-            <c:forEach var="comment" items="${comments}">
-                <c:choose>
-                    <c:when test="${not empty comment.user}">
-                        <p>Autor: ${comment.user.firstName} ${comment.user.lastName}<br></p>
-                    </c:when>
-                    <c:otherwise>
-                        <p>Autor: Anonim</p>
-                    </c:otherwise>
-                </c:choose>
-                <p> Opis: ${comment.message}<br></p>
-                <c:if test="${comment.user.id == sessionScope.User.getId()}">
-                    <form action="/home/comment/edit" method="get">
-                        <input type="hidden" value="${comment.id}" name="id">
-                        <input type="submit" value="Edytuj">
-                    </form>
-                </c:if>
-            </c:forEach>
-            <br>
+            <table class="table table-bordered table-dark table-striped">
+                <thead>
+                <tr class="text-center">
+                    <th scope="col">Komentarze</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="comment" items="${comments}">
+                    <tr>
+                        <th scope="row">
+                            <ul>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <c:choose>
+                                            <c:when test="${not empty comment.user}">
+                                                Autor: ${comment.user.firstName} ${comment.user.lastName}
+                                            </c:when>
+                                            <c:otherwise>
+                                                Autor: Anonim
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </li>
+                                    <li class="list-inline-item float-right">
+                                        <c:if test="${comment.user.id == sessionScope.User.getId() and  not empty sessionScope.User}">
+                                            <form action="/home/comment/edit" method="get">
+                                                <input type="hidden" value="${comment.id}" name="id">
+                                                <button type="submit" class="btn btn-secondary">Edytuj</button>
+                                            </form>
+                                        </c:if>
+                                    </li>
+                                </ul>
+                                <ul>Komentarz:</ul>
+                                <ul>${comment.message}<br></ul>
+                            </ul>
+                        </th>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </c:when>
         <c:otherwise>
-            <p>Brak komentarzyu</p>
+            <table class="table table-bordered table-dark table-striped">
+                <thead>
+                <tr class="text-center">
+                    <th scope="col">Komentarze</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Brak komentarzy</th>
+                </tr>
+                </tbody>
+            </table>
         </c:otherwise>
     </c:choose>
-</div>
-</body>
-</html>
+</main>
+<jsp:include page="footer.jsp"/>

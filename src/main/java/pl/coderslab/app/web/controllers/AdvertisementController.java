@@ -33,9 +33,20 @@ public class AdvertisementController {
     }
 
     @RequestMapping(value = {"/add", "/edit"}, method = RequestMethod.POST)
-    public String processAddAdvertisementPage(@ModelAttribute("data") @Valid AdvertisementDTO advertisementDTO, BindingResult result, Principal principal) {
-        advertisementService.addAdvertisement(advertisementDTO, principal.getName());
-        return "redirect:/";
+    public String processAddAdvertisementPage(@ModelAttribute("data") @Valid AdvertisementDTO data, BindingResult result, Principal principal) {
+        if (result.hasErrors())
+            return "menage-advertisement";
+        if (data.getTitle() == null) {
+            result.rejectValue("title", null, "Brak danych");
+            return "menage-advertisement";
+        }
+        if (data.getDescription() == null) {
+            result.rejectValue("description", null, "Brak danych");
+            return "menage-advertisement";
+        }
+
+        advertisementService.addAdvertisement(data, principal.getName());
+        return "redirect:/home";
     }
 
 
@@ -48,7 +59,8 @@ public class AdvertisementController {
 
     @GetMapping("/edit")
     public String prepareEditAdvertisementPage(Model model, @RequestParam Long id) {
-        model.addAttribute("data", advertisementService.getAdevertisement(id));
+        model.addAttribute("data", advertisementService.getAdvertisement(id));
         return "menage-advertisement";
     }
+
 }

@@ -12,7 +12,7 @@ import pl.coderslab.app.repositories.AdvertisementRepository;
 import pl.coderslab.app.repositories.UserRepository;
 
 import java.io.IOException;
-import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -48,17 +48,7 @@ public class AdvertisementService {
         advertisementRepository.save(advertisement);
     }
 
-    public AdvertisementDTO editAdvertisement(Advertisement advertisement) {
-        AdvertisementDTO advertisementDTO = new AdvertisementDTO();
-        advertisementDTO.setDescription(advertisement.getDescription());
-        advertisementDTO.setExpired(advertisement.getExpired());
-        advertisementDTO.setTitle(advertisement.getTitle());
-        advertisementDTO.setId(advertisement.getId());
-        advertisementDTO.setBase64Image(Base64.getEncoder().encodeToString(advertisement.getImage()));
-        return advertisementDTO;
-    }
-
-    public Advertisement getAdevertisement(Long id) {
+    public Advertisement getAdvertisement(Long id) {
         return advertisementRepository.findOne(id);
     }
 
@@ -68,6 +58,7 @@ public class AdvertisementService {
 
     public List<Comment> commentList(Long id) {
         List<Comment> comments = advertisementRepository.findOne(id).getComments();
+        Collections.reverse(comments);
         comments.size();
         return comments;
     }

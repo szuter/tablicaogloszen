@@ -7,18 +7,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<jsp:include page="header.jsp"/>
+<main>
+    <c:forEach var="message" items="${inbox}">
 
-<c:forEach var="message" items="${inbox}">
-    Autor:${message.sender.firstName} ${message.sender.lastName}<br>
-    Tytuł:${message.title}<br>
-    Wiadomość:${message.message}<br>
-    <br>
-</c:forEach>
-
-</body>
-</html>
+        <hr>
+        <h2>Od: ${message.sender.firstName} ${message.sender.lastName} Tytuł: ${message.title}</h2><br>
+        ${message.message}
+        <hr>
+    </c:forEach>
+</main>
+<jsp:include page="footer.jsp"/>

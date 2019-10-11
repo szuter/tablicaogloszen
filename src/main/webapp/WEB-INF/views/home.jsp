@@ -1,5 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: szuter
@@ -7,28 +9,36 @@
   Time: 13:01
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-</head>
-<body>
 <jsp:include page="header.jsp"/>
+<main>
 
-<c:forEach items="${advertisementList}" var="advertisement">
-    <li>
-        Opis:${advertisement.description}<br>
-        Obraz:<br>
-        <img src="data:image/png;base64,${advertisement.base64Image}" height="80" width="60">
-    </li>
-    <form action="/home/advertisement/show" method="get">
-        <input type="hidden" name="id" value="${advertisement.id}"/>
-        <input type="submit" value="Szczególy"/>
-    </form>
-</c:forEach>
+    <table class="table table-bordered table-dark table-striped">
+        <thead>
+        <tr class="text-center">
+            <th scope="col">Obraz</th>
+            <th scope="col">Tytuł</th>
+            <th scope="col">Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${advertisementList}" var="advertisement">
+            <tr>
+                <th scope="row" class="text-center"><img src="data:image/png;base64,${advertisement.base64Image}" height="60" width="80">
+                </th>
+                <td class="text-center">${advertisement.title}</td>
+                <td>
+                    <form action="/home/advertisement/show" method="get">
+                        <input type="hidden" name="id" value="${advertisement.id}"/>
+                        <button type="submit" class="btn btn-secondary btn-lg btn-block">Szczegóły</button>
+                    </form>
+                </td>
 
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
+
+</main>
 <jsp:include page="footer.jsp"/>
-</body>
-</html>
+

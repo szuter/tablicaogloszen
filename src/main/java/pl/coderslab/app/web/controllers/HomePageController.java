@@ -12,7 +12,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/home")
 public class HomePageController {
 
     private HomePageService homePageService;
